@@ -25,4 +25,4 @@ jobs:
         run: npm install
 
       - name: Run Postman tests with Newman
-        run: newman run postman/Back End Assessment.postman_collection.json
+        run: newman run postman/backend_assessment.postman_collection.json
