@@ -1,0 +1,112 @@
+Backend Test Automation Documentation
+1. Overview
+This document outlines the test cases and edge scenarios tested for the backend API, focusing on user registration and login functionalities. The tests are automated using Postman, ensuring that all valid and invalid inputs are properly handled by the backend.
+2. Test Cases for User Registration
+Positive Test Case: Successful User Registration
+•	Test Name: Register
+•	Method: POST
+•	Endpoint: /api/auth/register
+•	Request Body:
+{
+    "username": "newuser",
+    "email": " newuser @example.com",
+    "password": "securepassword123"
+}
+•	Expected Response:
+o	Status Code: 201 Created
+o	Response Body:
+{
+    "message": "User registered successfully"
+}
+
+Negative Test Case 1: Missing Required Fields
+•	Test Name: Invalid register
+•	Method: POST
+•	Endpoint: /api/auth/register
+•	Request Body:
+
+{
+    "username": "newuser",
+    "email": ""
+}
+•	Expected Response:
+o	Status Code: 400 Bad Request
+o	Response Body:
+{
+    "message": " All fields are required"
+}
+Negative Test Case 2: Duplicate Email Registration
+•	Test Name: Already Existing User
+•	Method: POST
+•	Endpoint: /api/auth/register
+•	Request Body:
+{
+    "username": "testuser2",
+    "email": "newuser@example.com",
+    "password": "securepassword123"
+}
+•	Expected Response:
+o	Status Code: 409 Conflict
+o	Response Body:
+{
+    "message": " User already exists"
+}
+3. Test Cases for User Login
+Positive Test Case: Successful Login
+•	Test Name: Login 
+•	Method: POST
+•	Endpoint: /api/auth/login
+•	Request Body:
+{
+    "email": "newuser3@example.com",
+    "password": "securepassword123"
+}
+•	Expected Response:
+o	Status Code: 200 OK
+o	Response Body:
+{
+    "message": "Login successful",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2Q4YTM2MDVmMGYwNTE1Y2UwNTY5YSIsImlhdCI6MTczNjM3NjQ4NywiZXhwIjoxNzM2MzgwMDg3fQ.o9YSAi5HcEcwO2QK8ousJUEhymKDmSKSoSTQbBs-8Pk"
+}
+Negative Test Case 1: Login Invalid Email
+•	Test Name: Login Invalid Email
+•	Method: POST
+•	Endpoint: /api/auth/login
+•	Request Body:
+{
+    "email": "invaliduser@example.com",
+    "password": "securepassword123"
+}
+•	Expected Response:
+o	Status Code: 400 Bad Request
+o	Response Body:
+{
+    "message": "User not found"
+}
+Negative Test Case 2: Invalid Password
+•	Test Name: Login Invalid Password
+•	Method: POST
+•	Endpoint: /api/auth/login
+•	Request Body:
+{
+    "email": "newuser@example.com",
+    "password": "wrongpassword"
+}
+•	Expected Response:
+o	Status Code: 401 Unauthorized
+o	Response Body:
+{
+    "message": "Invalid credentials"
+}
+________________________________________
+4. Edge Scenarios
+•	Empty Request Body: Test if the API handles requests with missing or empty bodies.
+o	Endpoint: /api/auth/register or /api/auth/login
+o	Expected Response: 400 Bad Request with appropriate error message.
+________________________________________
+5. Summary of Test Results
+•	Total Test Cases: 7
+•	Pass: 7
+•	Fail: 0
+•	Pending: 0
+
